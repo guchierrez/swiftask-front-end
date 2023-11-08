@@ -7,6 +7,7 @@ interface IFormTextInputProps {
   errors: FieldErrors<any>;
   inputName: InputName;
   inputPlaceholder: string;
+  value?: string;
 }
 
 export const FormTextareaInput = ({
@@ -14,6 +15,7 @@ export const FormTextareaInput = ({
   errors,
   inputName,
   inputPlaceholder,
+  value,
 }: IFormTextInputProps) => {
   return (
     <div className="flex flex-col gap-1">
@@ -25,6 +27,7 @@ export const FormTextareaInput = ({
         } transition-all duration-300 outline-none p-2 focus:outline-none resize-none textarea textarea-lg w-full`}
         placeholder={inputPlaceholder}
         autoComplete="current-password"
+        defaultValue={value}
         {...register(inputName)}
       />
       {errors[inputName] && (

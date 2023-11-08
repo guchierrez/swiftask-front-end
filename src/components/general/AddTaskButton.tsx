@@ -1,6 +1,6 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useContext } from "react";
-import { MainContext } from "../providers/MainContext";
+import { MainContext } from "../../providers/MainContext";
 
 export const AddTaskButton = () => {
   const { addTaskModalRef } = useContext(MainContext);

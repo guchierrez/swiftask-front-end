@@ -8,6 +8,7 @@ interface IFormTextInputProps {
   inputName: InputName;
   inputType: string;
   inputPlaceholder: string;
+  value?: string;
 }
 
 export const FormTextInput = ({
@@ -16,6 +17,7 @@ export const FormTextInput = ({
   inputName,
   inputType,
   inputPlaceholder,
+  value,
 }: IFormTextInputProps) => {
   return (
     <div className="flex flex-col gap-1">
@@ -29,6 +31,7 @@ export const FormTextInput = ({
         placeholder={inputPlaceholder}
         autoComplete="current-password"
         {...register(inputName)}
+        defaultValue={value}
       />
       {errors[inputName] && (
         <p className="text-xs text-red-500 font-roboto">

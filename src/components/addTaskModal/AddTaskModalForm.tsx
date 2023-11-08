@@ -3,9 +3,9 @@ import { BsPlusCircle } from "react-icons/bs";
 import { TTaskFormSchema, TaskFormSchema } from "../../schemas/TaskSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
-import { FormTextareaInput } from "../FormTextareaInput";
+import { FormTextareaInput } from "../general/FormTextareaInput";
 import { MainContext } from "../../providers/MainContext";
-import { FormTextInput } from "../FormTextInput";
+import { FormTextInput } from "../general/FormTextInput";
 
 export const AddTaskForm = () => {
   const {
@@ -17,12 +17,12 @@ export const AddTaskForm = () => {
     resolver: zodResolver(TaskFormSchema),
   });
 
-  const { addTaskModalRef } = useContext(MainContext);
+  const { addTodo, addTaskModalRef } = useContext(MainContext);
 
   const submit: SubmitHandler<TTaskFormSchema> = (formData) => {
-    // addProduct(formData);
-    reset();
+    addTodo(formData);
     addTaskModalRef.current?.close();
+    reset();
   };
 
   return (

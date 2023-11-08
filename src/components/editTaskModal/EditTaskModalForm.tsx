@@ -3,9 +3,9 @@ import { MdOutlineModeEditOutline } from "react-icons/md";
 import { TTaskFormSchema, TaskFormSchema } from "../../schemas/TaskSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
-import { FormTextareaInput } from "../FormTextareaInput";
+import { FormTextareaInput } from "../general/FormTextareaInput";
 import { MainContext } from "../../providers/MainContext";
-import { FormTextInput } from "../FormTextInput";
+import { FormTextInput } from "../general/FormTextInput";
 
 export const EditTaskForm = () => {
   const {
@@ -17,12 +17,14 @@ export const EditTaskForm = () => {
     resolver: zodResolver(TaskFormSchema),
   });
 
-  const { editTaskModalRef } = useContext(MainContext);
+  const { editTaskModalRef, editTodo, selectedTodo } = useContext(MainContext);
 
   const submit: SubmitHandler<TTaskFormSchema> = (formData) => {
-    // addProduct(formData);
-    reset();
-    editTaskModalRef.current?.close();
+    if (selectedTodo) {
+      editTodo(formData, selectedTodo.id);
+      reset();
+      editTaskModalRef.current?.close();
+    }
   };
 
   return (
@@ -33,12 +35,14 @@ export const EditTaskForm = () => {
         inputPlaceholder="Title"
         register={register}
         inputType="text"
+        value={selectedTodo?.title}
       />
       <FormTextareaInput
         errors={errors}
         inputName="description"
         inputPlaceholder="Task description"
         register={register}
+        value={selectedTodo?.description}
       />
       <button className="self-end h-10 px-8 text-xs tracking-widest rounded-none btn btn-sm btn-primary w-fit font-oswald">
         <MdOutlineModeEditOutline className="text-lg" />

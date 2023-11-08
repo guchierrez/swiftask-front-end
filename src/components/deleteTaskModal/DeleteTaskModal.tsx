@@ -3,7 +3,8 @@ import { MainContext } from "../../providers/MainContext";
 import { BsFillTrashFill } from "react-icons/bs";
 
 export const DeleteTaskModal = () => {
-  const { deleteTaskModalRef } = useContext(MainContext);
+  const { deleteTaskModalRef, deleteTodo, selectedTodo } =
+    useContext(MainContext);
 
   return (
     <dialog ref={deleteTaskModalRef} className="modal">
@@ -12,7 +13,9 @@ export const DeleteTaskModal = () => {
           <button
             type="button"
             className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2"
-            onClick={() => deleteTaskModalRef.current?.close()}
+            onClick={() => {
+              deleteTaskModalRef.current?.close();
+            }}
           >
             ✕
           </button>
@@ -23,7 +26,13 @@ export const DeleteTaskModal = () => {
             <p className="pt-2 pb-4 font-thin tracking-wide ">
               Are you sure you want to delete this to do?
             </p>
-            <button className="h-10 px-8 ml-auto text-xs tracking-widest rounded-none btn btn-sm btn-primary w-fit font-oswald">
+            <button
+              type="submit"
+              className="h-10 px-8 ml-auto text-xs tracking-widest rounded-none btn btn-sm btn-primary w-fit font-oswald"
+              onClick={() => {
+                if (selectedTodo) deleteTodo(selectedTodo.id);
+              }}
+            >
               <BsFillTrashFill className="text-lg" />
               DELETE
             </button>
