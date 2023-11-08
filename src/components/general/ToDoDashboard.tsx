@@ -19,9 +19,12 @@ export const ToDoDashboard = () => {
           />
         ))
       ) : (
-        <div className="flex flex-col items-center justify-center py-40 mx-auto h-fit animate-fade-translate">
-          <Lottie animationData={Empty} className="w-60 fill-blue-500" />
-          <p className="text-xl font-black tracking-widest text-center uppercase text-base-100">
+        <div className="flex flex-col items-center justify-center py-40 mx-auto select-none h-fit animate-fade-translate">
+          <Lottie
+            animationData={Empty}
+            className="w-48 sm:w-52 md:w-60 fill-blue-500"
+          />
+          <p className="text-lg font-thin tracking-wide text-center sm:text-2xl lg:text-3xl text-base-100">
             No to dos were found :(
           </p>
         </div>
