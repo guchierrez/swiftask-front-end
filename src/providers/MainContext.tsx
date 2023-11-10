@@ -138,6 +138,7 @@ export const MainProvider = ({ children }: IMainContextProps) => {
           selectedTodo,
           setSelectedTodo,
           toggleCompleted,
+          loadTodos,
         }}
       >
         {children}

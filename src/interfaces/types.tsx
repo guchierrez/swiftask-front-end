@@ -16,6 +16,7 @@ export interface IMainContext {
   selectedTodo: ITodo | null;
   setSelectedTodo: React.Dispatch<React.SetStateAction<ITodo | null>>;
   toggleCompleted: (e: any) => Promise<void>;
+  loadTodos: () => Promise<void>;
 }
 
 export interface ITodo {

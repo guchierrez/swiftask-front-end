@@ -4,11 +4,12 @@ import { MainContext } from "../../providers/MainContext";
 import toast from "react-hot-toast";
 
 export const AddTaskButton = () => {
-  const { addTaskModalRef, mainLoading } = useContext(MainContext);
+  const { addTaskModalRef, mainLoading, loadTodos } = useContext(MainContext);
   return (
     <button
       onClick={() => {
         if (mainLoading) {
+          loadTodos();
           toast("Fetching data from API, please wait or refresh the website.");
         } else {
           addTaskModalRef.current?.showModal();
