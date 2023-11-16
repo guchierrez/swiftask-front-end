@@ -4,9 +4,11 @@ import { MainContext } from "../../providers/MainContext";
 import toast from "react-hot-toast";
 
 export const AddTaskButton = () => {
-  const { addTaskModalRef, mainLoading, loadTodos } = useContext(MainContext);
+  const { addTaskModalRef, mainLoading, loadTodos, addButton } =
+    useContext(MainContext);
   return (
     <button
+      disabled={addButton}
       onClick={() => {
         if (mainLoading) {
           loadTodos();

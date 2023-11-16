@@ -14,6 +14,7 @@ export const MainProvider = ({ children }: IMainContextProps) => {
   const [selectedTodo, setSelectedTodo] = useState<ITodo | null>(null);
 
   const [mainLoading, setMainLoading] = useState<boolean>(false);
+  const [addButton, setAddButton] = useState<boolean>(false);
 
   const loadTodos = async () => {
     setMainLoading(true);
@@ -23,6 +24,7 @@ export const MainProvider = ({ children }: IMainContextProps) => {
     } catch (error: any) {
       toast.error("There was an internal server error.");
     } finally {
+      setAddButton(false);
       setMainLoading(false);
     }
   };
@@ -39,6 +41,7 @@ export const MainProvider = ({ children }: IMainContextProps) => {
     } catch (error: any) {
       toast.error(error?.response?.data);
     } finally {
+      setAddButton(true);
       loadTodos();
     }
   };
@@ -51,6 +54,7 @@ export const MainProvider = ({ children }: IMainContextProps) => {
     } catch (error: any) {
       toast.error(error?.response?.data);
     } finally {
+      setAddButton(true);
       loadTodos();
     }
   };
@@ -75,6 +79,7 @@ export const MainProvider = ({ children }: IMainContextProps) => {
     } catch (error: any) {
       toast.error(error?.response?.data);
     } finally {
+      setAddButton(true);
       loadTodos();
     }
   };
@@ -139,6 +144,8 @@ export const MainProvider = ({ children }: IMainContextProps) => {
           setSelectedTodo,
           toggleCompleted,
           loadTodos,
+          addButton,
+          setAddButton,
         }}
       >
         {children}

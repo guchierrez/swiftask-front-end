@@ -24,7 +24,7 @@ export const ToDoDashboard = () => {
             animationData={Empty}
             className="w-48 sm:w-52 md:w-60 fill-blue-500"
           />
-          <p className="text-lg font-thin tracking-wide text-center sm:text-2xl lg:text-3xl text-base-100">
+          <p className="-mt-10 font-thin tracking-widest text-center uppercase sm:text-2xl lg:text-3xl text-base-100">
             No to dos were found :(
           </p>
         </div>
