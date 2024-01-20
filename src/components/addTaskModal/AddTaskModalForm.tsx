@@ -29,7 +29,7 @@ export const AddTaskForm = () => {
     <form className="flex flex-col gap-5" onSubmit={handleSubmit(submit)}>
       <FormTextInput
         errors={errors}
-        inputName="title"
+        inputName="name"
         inputPlaceholder="Title"
         register={register}
         inputType="text"

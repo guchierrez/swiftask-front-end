@@ -31,11 +31,11 @@ export const EditTaskForm = () => {
     <form className="flex flex-col gap-5" onSubmit={handleSubmit(submit)}>
       <FormTextInput
         errors={errors}
-        inputName="title"
-        inputPlaceholder="Title"
+        inputName="name"
+        inputPlaceholder="Name"
         register={register}
         inputType="text"
-        value={selectedTodo?.title}
+        value={selectedTodo?.name}
       />
       <FormTextareaInput
         errors={errors}

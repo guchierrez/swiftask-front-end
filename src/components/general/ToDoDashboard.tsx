@@ -13,7 +13,7 @@ export const ToDoDashboard = () => {
           <ToDoCard
             key={todo.id}
             description={todo.description}
-            title={todo.title}
+            name={todo.name}
             completed={todo.completed}
             id={todo.id}
           />

@@ -20,7 +20,7 @@ export const MainProvider = ({ children }: IMainContextProps) => {
     setMainLoading(true);
     try {
       const { data } = await api.get("/todos");
-      setTodos(data);
+      await setTodos(data);
     } catch (error: any) {
       toast.error("There was an internal server error.");
     } finally {
@@ -35,58 +35,62 @@ export const MainProvider = ({ children }: IMainContextProps) => {
 
   const addTodo = async (formData: TTaskFormSchema) => {
     try {
-      const { data } = await api.post("/todos", formData, {});
-      setTodos((todos) => [...todos, data]);
+      await api.post("/todos", formData, {});
       toast.success(`To do added successfully.`);
-    } catch (error: any) {
-      toast.error(error?.response?.data);
-    } finally {
+
       setAddButton(true);
       loadTodos();
+
+      console.log(todos);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
 
-  const deleteTodo = async (productId: string) => {
+  const deleteTodo = async (productId: number) => {
     try {
       await api.delete(`/todos/${productId}`, {});
       setTodos((todos) => todos.filter((todo) => todo.id !== productId));
       toast.success("To do deleted successfully.");
     } catch (error: any) {
-      toast.error(error?.response?.data);
+      toast.error(error.response.data.message);
     } finally {
       setAddButton(true);
-      loadTodos();
+      await loadTodos();
     }
   };
 
-  const editTodo = async (formData: TTaskFormSchema, todoId: string) => {
+  const editTodo = async (formData: TTaskFormSchema, todoId: number) => {
     try {
       await api.patch(`/todos/${todoId}`, formData, {});
-      setTodos((todos) =>
-        todos.map((todo) => {
-          if (todoId === todo.id) {
-            const updatedTodo = {
-              title: formData.title,
-              description: formData.description,
-            };
-            return { ...todo, ...updatedTodo };
-          } else {
-            return todo;
-          }
-        })
+
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todoId === todo.id
+            ? {
+                ...todo,
+                name: formData.name,
+                description: formData.description,
+              }
+            : todo
+        )
       );
-      toast.success("To do updated succesfully.");
+
+      loadTodos();
+      toast.success("To do updated successfully.");
+      console.log(todos);
     } catch (error: any) {
-      toast.error(error?.response?.data);
+      toast.error(error.response.data.message);
     } finally {
       setAddButton(true);
-      loadTodos();
     }
   };
 
   const toggleCompleted = async (e: any) => {
-    const todoId = e?.target?.closest(".parent-selector").id;
+    const todoId = parseInt(e?.target?.closest(".parent-selector").id);
     const filteredTodo = todos.filter((todo) => todo.id === todoId);
+    console.log(e.target);
+    console.log(todoId);
     e.target.disabled = true;
 
     // Introduce a delay of 200ms using setTimeout
@@ -110,7 +114,7 @@ export const MainProvider = ({ children }: IMainContextProps) => {
         );
         toast.success("Action was successful.");
       } catch (error: any) {
-        console.log(error);
+        toast.error(error.response.data.message);
       } finally {
         setSelectedTodo(null);
         e.target.disabled = false;
@@ -119,10 +123,9 @@ export const MainProvider = ({ children }: IMainContextProps) => {
   };
 
   const getSelectedTodoId = async (e: any): Promise<void> => {
-    const todoId = e?.target?.closest(".parent-selector").id;
+    const todoId = parseInt(e?.target?.closest(".parent-selector").id);
     const filteredTodo = todos.filter((todo) => todo.id === todoId);
     await setSelectedTodo(filteredTodo[0]);
-    return;
   };
 
   return (

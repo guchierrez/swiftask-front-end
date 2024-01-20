@@ -1,6 +1,6 @@
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 
-type InputName = "title";
+type InputName = "name";
 
 interface IFormTextInputProps {
   register: UseFormRegister<any>;

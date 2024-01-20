@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const TaskFormSchema = z.object({
-  title: z
+  name: z
     .string()
     .min(1, "Please enter a title before submitting.")
     .max(30, "Title must have less than 30 characters."),

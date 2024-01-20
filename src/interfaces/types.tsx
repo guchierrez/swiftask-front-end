@@ -10,8 +10,8 @@ export interface IMainContext {
   mainLoading: boolean;
   setMainLoading: React.Dispatch<React.SetStateAction<boolean>>;
   addTodo: (formData: TTaskFormSchema) => Promise<void>;
-  deleteTodo: (productId: string) => Promise<void>;
-  editTodo: (formData: TTaskFormSchema, todoId: string) => Promise<void>;
+  deleteTodo: (productId: number) => Promise<void>;
+  editTodo: (formData: TTaskFormSchema, todoId: number) => Promise<void>;
   getSelectedTodoId: (e: any) => void;
   selectedTodo: ITodo | null;
   setSelectedTodo: React.Dispatch<React.SetStateAction<ITodo | null>>;
@@ -22,8 +22,8 @@ export interface IMainContext {
 }
 
 export interface ITodo {
-  id: string;
-  title: string;
+  id: number;
+  name: string;
   description: string;
   completed: boolean;
 }

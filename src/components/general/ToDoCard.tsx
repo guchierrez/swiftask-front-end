@@ -4,14 +4,14 @@ import { useContext } from "react";
 import { MainContext } from "../../providers/MainContext";
 
 export interface IToDoCardProps {
-  id: string;
-  title: string;
+  id: number;
+  name: string;
   description: string;
   completed: boolean;
 }
 
 export const ToDoCard = ({
-  title,
+  name,
   description,
   completed,
   id,
@@ -26,7 +26,7 @@ export const ToDoCard = ({
 
   return (
     <div
-      id={id}
+      id={String(id)}
       className="w-full h-48 lg:h-60 lg:w-1/4 indicator parent-selector animate-fade-translate"
     >
       <input
@@ -44,7 +44,7 @@ export const ToDoCard = ({
         } relative duration-300 transition-colors flex flex-col w-full p-4 overflow-hidden rounded-sm shadow-2xl bg-primary`}
       >
         <h1 className="pb-4 text-lg font-black tracking-wide break-words whitespace-normal">
-          {title}
+          {name}
         </h1>
         <p className="font-thin tracking-wide break-words whitespace-normal">
           {description}
